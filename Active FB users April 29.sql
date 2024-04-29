@@ -56,3 +56,22 @@ SELECT COUNT(USER_ID) AS TOTAL_USERS,
 	   as share_of_active_users_US
 FROM FB_ACTIVE_USERS
 WHERE country='USA'
+
+
+-- Your Task
+-- Find non_active users share for China
+
+SELECT COUNT(USER_ID) AS TOTAL_USERS,
+       SUM(
+	   CASE
+	       WHEN STATUS='closed' THEN 1
+	       ELSE 0
+	   END)AS NON_ACTIVE_USERS,
+	   ROUND(SUM(
+	   CASE WHEN STATUS='closed' THEN 1
+	   ELSE 0
+	   END)::numeric/COUNT(USER_ID)::numeric * 100,2)
+	   as share_of_non_active_users_US
+FROM FB_ACTIVE_USERS
+WHERE country='China'
+
